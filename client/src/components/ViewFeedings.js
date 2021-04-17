@@ -11,6 +11,7 @@ const ViewFeedings = () => {
         fetch("/view")
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 setMsg(data.msg);
             });
     }
