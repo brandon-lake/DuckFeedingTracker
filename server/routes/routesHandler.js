@@ -18,6 +18,7 @@ router.route("/add").post((req, res) => {
     let food = req.body.food;
     let foodQuantity = req.body.foodQuantity;
 
+    console.log(numberOfDucks);
     let newFeeding = new Feeding({
         numberOfDucks, feedingLocation, feedingTime, food, foodQuantity
     });
