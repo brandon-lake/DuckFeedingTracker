@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const ViewFeedings = () => {
     const [msg, setMsg] = useState("");
@@ -8,13 +9,11 @@ const ViewFeedings = () => {
     }, []);
 
     const fetchMessage = async() => {
-        fetch("/view")
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setMsg(data.msg);
-            });
+        axios.get("http://localhost:4000/view")
+            .then(res => console.log(res.data));
+
     }
+    
     return (
         <div>
             <h3>{ msg }</h3>

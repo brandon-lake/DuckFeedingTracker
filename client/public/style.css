@@ -1,0 +1,23 @@
+.nav-link {
+    color: white;
+    font-size: 1.2em;
+}
+.nav-link:hover {
+    color: white;
+}
+
+#numDucks .form-control {
+    min-width: 100px;
+}
+#feedLocation .form-control {
+    min-width: 200px;
+}
+#feedTime .form-control {
+    min-width: 200px;
+}
+#food .form-control {
+    min-width: 150px;
+}
+#foodQuantity .form-control {
+    min-width: 100px;
+}

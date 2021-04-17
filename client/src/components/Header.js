@@ -7,7 +7,7 @@ const Header = () => {
             <header className="mt-2">
                 <h1>Duck Feeding Tracker</h1>
             </header>
-            <nav className="navbar navRow" >
+            <nav className="navbar navRow navbar-dark bg-dark justify-content-center" >
                 <ul className="nav nav-tabs">
                     <li className="nav-item">
                         <NavLink className="nav-link" to="/view">View Feedings</NavLink>
