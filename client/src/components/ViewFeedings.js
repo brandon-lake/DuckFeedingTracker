@@ -12,15 +12,15 @@ const feedingsReducer = (state, action) => {
         case 'asc': {
             switch(action.payload) {
                 case "numberOfDucks":
-                    return [...state.sort((a,b) => a.numberOfDucks.toString().localeCompare(b.numberOfDucks.toString()))];
+                    return [...state.sort((a,b) => a.numberOfDucks - b.numberOfDucks)];
                 case "feedingLocation":
                     return [...state.sort((a,b) => a.feedingLocation.localeCompare(b.feedingLocation))];
                 case "feedingTime":
-                    return [...state.sort((a,b) => a.feedingTime.toString().localeCompare(b.feedingTime.toString()))];
+                    return [...state.sort((a,b) => a.feedingTime.localeCompare(b.feedingTime))];
                 case "food":
                     return [...state.sort((a,b) => a.food.localeCompare(b.food))];
                 case "foodQuantity":
-                    return [...state.sort((a,b) => a.foodQuantity.toString().localeCompare(b.foodQuantity.toString()))];
+                    return [...state.sort((a,b) => a.foodQuantity - b.foodQuantity)];
                 default:
                     return state;
             }
@@ -28,15 +28,15 @@ const feedingsReducer = (state, action) => {
         case 'desc': {
             switch(action.payload) {
                 case "numberOfDucks":
-                    return [...state.sort((a, b) => b.numberOfDucks.toString().localeCompare(a.numberOfDucks.toString()))];
+                    return [...state.sort((a, b) => b.numberOfDucks - a.numberOfDucks)];
                 case "feedingLocation":
                     return [...state.sort((a, b) => b.feedingLocation.localeCompare(a.feedingLocation))];
                 case "feedingTime":
-                    return [...state.sort((a, b) => b.feedingTime.toString().localeCompare(a.feedingTime.toString()))];
+                    return [...state.sort((a, b) => b.feedingTime.localeCompare(a.feedingTime))];
                 case "food":
                     return [...state.sort((a, b) => b.food.localeCompare(a.food))];
                 case "foodQuantity":
-                    return [...state.sort((a, b) => b.foodQuantity.toString().localeCompare(a.foodQuantity.toString()))];
+                    return [...state.sort((a, b) => b.foodQuantity - a.foodQuantity)];
                 default:
                     return state;
             }

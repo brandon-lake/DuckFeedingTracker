@@ -126,7 +126,7 @@ const AddFeeding = () => {
                         <Form.Label className="mt-1">Feeding Time:</Form.Label>
                     </Col>
                     <Col xs="3">
-                        <Form.Control className="w-50" type="datetime-local" value={feedingTime} onChange={updateFeedingTime} required />
+                        <Form.Control className="w-75" type="datetime-local" value={feedingTime} onChange={updateFeedingTime} required />
                     </Col>
                 </Form.Row>
 
