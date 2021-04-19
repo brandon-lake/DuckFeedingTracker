@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import axios from 'axios';
-import { Table, Container, Row, Col } from 'react-bootstrap';
+import { Table, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import UpArrow from '../images/up.png';
 import DownArrow from '../images/down.png';
 import classNames from 'classnames';
@@ -50,11 +50,55 @@ const ViewFeedings = () => {
     const [filteredFeedings, setFilteredFeedings] = useState([]);
     const [feedings, dispatch] = useReducer(feedingsReducer, []);
     const [sortingBy, setSortingBy] = useState("");
+    const [locationFilter, setLocationFilter] = useState("");
+    const [feedTimeFilter, setFeedTimeFilter] = useState("");
+    const [foodFilter, setFoodFilter] = useState("");
+
     // let test = React.createRef();
 
     useEffect(() => {
         getAllFeedings();
     }, []);
+
+    useEffect(() => {
+        const updateFilteredFeedings = (unfilteredFeedings) => {            
+            if (locationFilter.trim() !== "") {
+                unfilteredFeedings = unfilteredFeedings.filter(feeding => feeding.feedingLocation.toLowerCase().includes(locationFilter.toLowerCase().trim()));
+            }
+
+            if (feedTimeFilter !== "") {
+                unfilteredFeedings = unfilteredFeedings.filter(feeding => {
+                    let d = new Date(feeding.feedingTime);
+                    let targetDate = feedTimeFilter.split("-"); // year, month, date
+
+                    if (isNaN(targetDate[0]) || isNaN(targetDate[1]) || isNaN(targetDate[2])) {
+                        return false;
+                    }
+
+                    if (d.getFullYear() !== parseInt(targetDate[0])) {
+                        return false;
+                    }
+                    if (d.getMonth() + 1 !== parseInt(targetDate[1])) {
+                        return false;
+                    }
+                    if (d.getDate() !== parseInt(targetDate[2])) {
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
+
+            if (foodFilter.trim() !== "") {
+                unfilteredFeedings = unfilteredFeedings.filter(feeding => feeding.food.toLowerCase().includes(foodFilter.toLowerCase().trim()));
+            }
+
+            setFilteredFeedings(unfilteredFeedings);
+        }
+
+        updateFilteredFeedings([...feedings]);
+
+    }, [locationFilter, feedTimeFilter, foodFilter, feedings]);
 
     const getAllFeedings = async() => {
         axios.get("http://localhost:4000/view")
@@ -77,6 +121,19 @@ const ViewFeedings = () => {
         dispatch({ type: order, payload: field });
         setFilteredFeedings(feedings);
     }
+    const updateLocationFilter = (e) => {
+        setLocationFilter(e.target.value);
+    }
+    const updateFeedTimeFilter = (e) => {
+        setFeedTimeFilter(e.target.value);
+    }
+    const updateFoodFilter = (e) => {
+        setFoodFilter(e.target.value);
+    }
+    const resetFeedTimeFilter = (e) => {
+        setFeedTimeFilter("");
+        e.target.blur();
+    }
     
     const tableBody = filteredFeedings.map(feeding => {
         return (
@@ -92,12 +149,39 @@ const ViewFeedings = () => {
 
     return (
         <div>
-            <h3 className="mt-4">View feedings</h3>
+            <h3 className="mt-4">Filter Results by the following fields:</h3>
             <hr />
 
             <Container id="tableFilters">
-                
+                <Form>
+                    <Form.Row id="filterInputs" className="w-100 justify-content-center mb-1">
+                        <Col xs="1" className="text-right">
+                            <Form.Label className="mt-1">Location:</Form.Label>
+                        </Col>
+                        <Col xs="3">
+                            <Form.Control className="w-75" type="text" value={locationFilter} onChange={updateLocationFilter} />
+                        </Col>
+
+                        <Col xs="1" className="text-right">
+                            <Form.Label className="mt-1">Feed Time:</Form.Label>
+                        </Col>
+                        <Col xs="4">
+                            <Row className="pl-3">
+                                <Form.Control className="w-75" type="date" value={feedTimeFilter} onChange={updateFeedTimeFilter} style={{ minWidth: "260px"}} />
+                                <Button variant="link" className="pl-1" onClick={resetFeedTimeFilter}>reset?</Button>
+                            </Row>
+                        </Col>
+
+                        <Col xs="1" className="text-right">
+                            <Form.Label className="mt-1">Food:</Form.Label>
+                        </Col>
+                        <Col xs="2">
+                            <Form.Control className="w-100" type="text" value={foodFilter} onChange={updateFoodFilter} />
+                        </Col>
+                    </Form.Row>
+                </Form>
             </Container>
+            <hr />
             <Container id="tableBody">
                 <Table striped bordered hover>
                     <thead>
