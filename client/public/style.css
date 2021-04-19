@@ -27,3 +27,22 @@ table p {
 .when {
     min-width: 260px;
 }
+.tableHeaderText {
+    vertical-align: middle;
+}
+.row > .col-8 {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+img.sortArrow:hover {
+    cursor: pointer;
+}
+img {
+    padding: 3px;
+}
+.currentSort {
+    border: 3px solid dodgerblue; 
+    border-radius: 5px;
+    padding: 0px;
+}
