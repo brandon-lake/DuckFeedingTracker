@@ -46,3 +46,27 @@ img {
     border-radius: 5px;
     padding: 0px;
 }
+
+.fade-enter div {
+    overflow-y: hidden;
+    max-height: 0;
+}
+.fade-enter-active div {
+    max-height: 120px;
+    transition: all 600ms ease-in;
+}
+.fade-exit div {
+    max-height: 120px;
+}
+.fade-exit-active div {
+    max-height: 0;
+    overflow-y: hidden;
+    transition: all 600ms ease-out;
+}
+
+table td {
+    padding: 0!important;
+}
+table td p {
+    line-height: 60px;
+}

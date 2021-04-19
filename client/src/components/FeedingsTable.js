@@ -3,6 +3,8 @@ import { Table, Container, Row, Col } from 'react-bootstrap';
 import UpArrow from '../images/up.png';
 import DownArrow from '../images/down.png';
 import classNames from 'classnames';
+import { TransitionGroup } from 'react-transition-group/';
+import AnimationWrapper from './AnimationWrapper';
 
 const FeedingsTable = ({
     filteredFeedings, setSortOrder, sortingBy
@@ -16,13 +18,13 @@ const FeedingsTable = ({
 
     const tableBody = filteredFeedings.map(feeding => {
         return (
-            <tr key={feeding._id} style={{ fontSize: "1.3em" }}>
+            <AnimationWrapper key={feeding._id} >
                 <td className="align-middle"><div><p>{ feeding.numberOfDucks }</p></div></td>
                 <td className="align-middle"><div><p>{ feeding.feedingLocation }</p></div></td>
                 <td className="align-middle"><div><p>{ formatTime(feeding.feedingTime) }</p></div></td>
                 <td className="align-middle"><div><p>{ feeding.food }</p></div></td>
                 <td className="align-middle"><div><p>{ feeding.foodQuantity + " grams" }</p></div></td>
-            </tr>            
+            </AnimationWrapper>           
         );
     });
 
@@ -123,9 +125,9 @@ const FeedingsTable = ({
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <TransitionGroup component="tbody">
                     { tableBody }
-                </tbody>
+                </TransitionGroup>
             </Table>
         </Container>
     );

@@ -51,8 +51,7 @@ const ViewFeedings = () => {
     const [locationFilter, setLocationFilter] = useState("");
     const [feedTimeFilter, setFeedTimeFilter] = useState("");
     const [foodFilter, setFoodFilter] = useState("");
-
-    // let test = React.createRef();
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
         getAllFeedings();
@@ -101,8 +100,12 @@ const ViewFeedings = () => {
     const getAllFeedings = async() => {
         axios.get("http://localhost:4000/view")
             .then(res => {
-                dispatch({ type: "populate", payload: res.data });
-                setFilteredFeedings(res.data);
+                if (res.status !== 400) {
+                    dispatch({ type: "populate", payload: res.data });
+                    setFilteredFeedings(res.data);
+                } else {
+                    setErrorMsg(res.body);
+                }
             });
     }
 
@@ -134,6 +137,14 @@ const ViewFeedings = () => {
                 foodFilter={foodFilter} updateFoodFilter={updateFoodFilter} />
             <hr />
             <FeedingsTable filteredFeedings={filteredFeedings} setSortOrder={setSortOrder} sortingBy={sortingBy} />
+
+            {errorMsg.length > 0 &&
+                <div className="container mt-5 text-danger w-100">
+                    <div className="row justify-content-center">
+                        <h3>{ errorMsg }</h3>
+                    </div>
+                </div>
+            }
         </div>
     );
 };
