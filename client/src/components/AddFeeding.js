@@ -100,7 +100,7 @@ const AddFeeding = () => {
 
     return (
         <div>
-            <h3 className="mt-5">Please fill in all fields regarding your duck feeding:</h3>
+            <h3 className="mt-4">Please fill in all fields regarding your duck feeding:</h3>
 
             <Form className="mt-4">
                 <Form.Row id="numDucks" className="w-100 justify-content-center mb-1">

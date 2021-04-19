@@ -21,3 +21,9 @@
 #foodQuantity .form-control {
     min-width: 100px;
 }
+table p {
+    margin-bottom: 0px;
+}
+.when {
+    min-width: 260px;
+}
